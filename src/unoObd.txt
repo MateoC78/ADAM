@@ -1,0 +1,34 @@
+#include <OBD2UART.h>
+#include <SoftwareSerial.h>
+
+COBD obd;
+SoftwareSerial espSerial(10, 11);
+
+void setup() {
+  espSerial.begin(115200);
+  obd.begin();          // uses default Serial for OBD-II adapter
+
+  while (!obd.init());
+}
+
+void loop() {
+  int engLoad, torq; //, thr, ignAdv;
+
+  bool gotLoad = obd.readPID(PID_ENGINE_LOAD, engLoad);
+  bool gotTq = obd.readPID(PID_ENGINE_REF_TORQUE, torq);
+
+  if (gotLoad && gotTq) {
+  //&& obd.readPID(PID_ENGINE_REF_TORQUE, torq) && obd.readPID(PID_THROTTLE, thr) && obd.readPID(PID_TIMING_ADVANCE, ignAdv)) {
+    //espSerial.print("Load:");
+    espSerial.print(engLoad);
+    espSerial.print(",");
+    espSerial.println(torq);
+    // espSerial.print(",Torque:");
+    // espSerial.print(torq);
+    // espSerial.print("Throttle:");
+    // espSerial.print(thr);
+    // espSerial.print(",Timing:");
+    // espSerial.println(ignAdv);
+  }
+  delay(500);
+}

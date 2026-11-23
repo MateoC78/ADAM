@@ -1,0 +1,11 @@
+2007 TOYOTA CAMRY OBDII PROTOCOL: ISO 15765-4
+
+ELM 327 power ctrl register OE is 9A by default:
+
+Parts list:
+ESP32
+DFPlayer mini (+sd card)
+CD4052 BE (dual channel analog mux)
+5V DPDT relay
+2x SPST switches
+MP1584EN module (DC-DC Buck Converter)
